@@ -2,14 +2,7 @@
 
 var nestedTwo = [ [ 'baz' ] ];
 
-var nestedThree = [
-  [
-    'baz',
-    [
-      'foo'
-    ]
-  ]
-];
+var nestedThree = [ [ 'baz', [ 'foo' ] ] ];
 
 var nestedTwoEmpty = [ [] ];
 

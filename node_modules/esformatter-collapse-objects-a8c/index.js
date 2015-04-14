@@ -2,13 +2,10 @@ var defaults = require('defaults-deep');
 var rocambole = require('rocambole');
 var _tk = require('rocambole-token');
 
-var MAX_DEPTH = 3;
-
 var options;
 var defaultOptions = {
   maxLineLength: 80,
   maxKeys: 3,
-  maxDepth: 2,
   forbidden: [
     'FunctionExpression'
   ]
@@ -25,7 +22,7 @@ module.exports = {
   transformAfter: function(ast) {
     rocambole.recursive(ast, transform);
   }
-}
+};
 
 function transform(node) {
   // Don't try to collapse non-objects or non-arrays
@@ -34,9 +31,9 @@ function transform(node) {
   var nodeOptions = options[node.type];
 
   var parentType = node.parent.type;
-  if (parentType === 'Property' || parentType === 'ArrayExpression') {
-    return;
-  }
+  //if (parentType === 'Property' || parentType === 'ArrayExpression') {
+  //  return;
+  //}
 
   // It collapses objects that are short enough
   // 0 indicates measurement failed, ignore
@@ -53,12 +50,6 @@ function transform(node) {
     }
   }
 
-  if ('maxDepth' in nodeOptions) {
-    if (getDepth(node) > nodeOptions.maxDepth) {
-      return;
-    }
-  }
-
   if ('forbidden' in nodeOptions) {
     for (var i = 0; i < getProperties(node).length; i++) {
       if (~nodeOptions.forbidden.indexOf(getValueAt(node, i).type)) {
@@ -69,31 +60,6 @@ function transform(node) {
 
   // if none of the above returns, collapse the whitespace.
   collapse(node);
-}
-
-function getDepth(node, init) {
-  init = init || 1;
-
-  // For performance reasons don't traverse too deep.
-  if (init > MAX_DEPTH) return Infinity;
-
-  var candidates = [];
-
-  var props = getProperties(node);
-  if (props) {
-    for (var i = 0; i < props.length; i++) {
-      var val = getValueAt(node, i);
-      if (isComposite(val)) {
-        candidates.push(getDepth(val, init + 1));
-      }
-    }
-  }
-
-  if (candidates.length) {
-    return Math.max.apply(null, candidates);
-  } else {
-    return init;
-  }
 }
 
 function isComposite(node) {

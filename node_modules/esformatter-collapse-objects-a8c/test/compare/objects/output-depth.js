@@ -2,17 +2,7 @@
 
 var nestedTwo = { foo: { bar: 'baz' } };
 
-var nestedThree = {
-  foo: {
-    bar: {
-      baz: [
-        1,
-        2,
-        3
-      ]
-    }
-  }
-};
+var nestedThree = { foo: { bar: { baz: [ 1, 2, 3 ] } } };
 
 var nestedTwoEmpty = { foo: {} }
 

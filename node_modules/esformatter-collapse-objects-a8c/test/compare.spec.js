@@ -1,5 +1,5 @@
 //jshint node:true, eqnull:true
-/*global describe, it, before*/
+/*global describe, it, beforeEach*/
 'use strict';
 
 var esformatter = require('esformatter');
@@ -28,12 +28,12 @@ describe('compare input/output', function() {
         ObjectExpression: {},
         ArrayExpression: {}
       }
-    }
+    };
   });
 
-  ['objects', 'arrays'].forEach(function (type) {
+  ['objects', 'arrays'].forEach(function(type) {
     describe('deep ' + type, function() {
-      it('does not collapse beyond the max depth', function() {
+      it('deals with nested structures', function() {
         var input = getFile(type, 'input-depth.js');
         var output = esformatter.format(input, this.config);
 
