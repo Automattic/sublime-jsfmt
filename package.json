@@ -2,6 +2,7 @@
   "name": "sublime-jsfmt",
   "dependencies": {
     "esformatter-braces": "^1.0.0",
+    "esformatter-collapse-objects": "^0.1.0",
     "esformatter-dot-notation": "^1.1.0",
     "esformatter-jsx-ignore": "^1.0.5",
     "esformatter-quotes": "^1.0.0",
